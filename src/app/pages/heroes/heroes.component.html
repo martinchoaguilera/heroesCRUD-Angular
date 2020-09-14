@@ -1,0 +1,80 @@
+<div class="row mt-4">
+    <div class="col-10 d-flex align-items-center">
+        <h1>Heroes</h1>
+    </div>
+    <div class="col-2 d-flex align-items-center justify-content-center">
+        <button class="btn btn-sm btn-outline-primary"
+                routerLink="/heroe/nuevo">
+            <i class="fas fa-user-plus"></i>
+            Agregar Heroe
+        </button>
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col table-responsive-md">
+        <table *ngIf="!loading" class="table">
+            <thead class="">
+                <tr class="table-dark">
+                    <th scope="col">
+                        <i class="fas fa-sort-numeric-down"></i>
+                    </th>
+                    <th scope="col">
+                        <i class="fas fa-mask"></i>
+                        Nombre
+                    </th>
+                    <th scope="col">
+                        <i class="fab fa-superpowers"></i>
+                        Poder
+                    </th>
+                    <th scope="col">
+                        <i class="fas fa-heartbeat"></i>
+                        Vida
+                    </th>
+                    <th scope="col">
+                        <i class="fas fa-toolbox"></i>
+                        Tools
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr *ngFor="let heroe of heroes; let i = index" class="">
+                    <td>  {{ i+1 }} </td>
+                    <td>  {{ heroe.nombre }} </td>
+                    <td>  {{ heroe.poder }} </td>
+                    <td>
+                        <span *ngIf="heroe.vivo" class="badge rounded-pill bg-success w-100">Vivo</span>
+                        <span *ngIf="!heroe.vivo" class="badge rounded-pill bg-danger w-100 ">Muerto</span>
+                    </td>
+                    <td class="d-flex justify-content-between ">
+                        <button [routerLink]="['/heroe', heroe.id]"
+                                class="btn btn-outline-success  w-50">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                        <button (click)="delete( heroe , i )"
+                                class="btn btn-outline-danger  w-50" >
+                            <i class="fas fa-user-slash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="heroes.length === 0  && !loading" class="row">
+    <div class="col">
+        <div class="alert alert-warning text-center">
+            <h3>No hay ningún Heroe cargado todavía!</h3>
+            <i class="far fa-frown icon-size"></i>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading" class="row">
+    <div class="col">
+        <div class="alert alert-primary text-center">
+            <h3>Loading...</h3>
+            <i class="fab fa-superpowers icon-size fa-spin"></i>
+        </div>
+    </div>
+</div>
